@@ -1,4 +1,3 @@
-// src/components/NetworkGraph.js
 import React, { useEffect, useRef } from 'react';
 import { Network, DataSet } from 'vis-network/standalone/umd/vis-network.min';
 import './NetworkGraph.css';

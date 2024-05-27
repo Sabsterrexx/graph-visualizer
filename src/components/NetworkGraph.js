@@ -2,24 +2,36 @@ import React, { useEffect, useRef } from 'react';
 import { Network, DataSet } from 'vis-network/standalone/umd/vis-network.min';
 import './NetworkGraph.css';
 
+
+function createNodes(nNodes){
+
+  let nodesArr = [];
+
+  for(let i = 0; i < nNodes; i++)
+    nodesArr.push({id: i, label: `Node ${i}`, color: "#ADD8E6"});
+
+  return new DataSet(nodesArr);
+
+}
+
+function createCyclicEdges(nEdges){
+
+  let edgesArr = [];
+
+  for(let i = 0; i < nEdges; i++)
+    edgesArr.push({from: i, to: i + 1});
+
+  edgesArr.push({from: nEdges - 1, to: 0});
+  return new DataSet(edgesArr);
+}
+
 const NetworkGraph = () => {
   const networkContainer = useRef(null);
 
   useEffect(() => {
-    const nodes = new DataSet([
-      { id: 1, label: 'Node 1', color: '#FF5733' },
-      { id: 2, label: 'Node 2', color: '#33FF57' },
-      { id: 3, label: 'Node 3', color: '#3357FF' },
-      { id: 4, label: 'Node 4', color: '#F1C40F' },
-      { id: 5, label: 'Node 5', color: '#9B59B6' },
-    ]);
+    const nodes = createNodes(5);
 
-    const edges = new DataSet([
-      { from: 1, to: 3 },
-      { from: 1, to: 2 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 },
-    ]);
+    const edges = createCyclicEdges(5);
 
     const data = { nodes, edges };
     const options = {

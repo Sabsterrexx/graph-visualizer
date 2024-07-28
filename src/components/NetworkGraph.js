@@ -25,13 +25,13 @@ function createCyclicEdges(nEdges){
   return new DataSet(edgesArr);
 }
 
-const NetworkGraph = () => {
+const NetworkGraph = ({ numNodes }) => {
   const networkContainer = useRef(null);
+  const network = useRef(null);
 
   useEffect(() => {
-    const nodes = createNodes(5);
-
-    const edges = createCyclicEdges(5);
+    const nodes = createNodes(numNodes);
+    const edges = createCyclicEdges(numNodes);
 
     const data = { nodes, edges };
     const options = {
@@ -52,8 +52,8 @@ const NetworkGraph = () => {
           hover: '#848484',
         },
         width: 2,
-        smooth: {   
-          type: 'continuous'
+        smooth: {
+          type: 'continuous',
         },
       },
       interaction: {
@@ -74,10 +74,20 @@ const NetworkGraph = () => {
       },
     };
 
-    const network = new Network(networkContainer.current, data, options);
-  }, []);
+    if (network.current) {
+      network.current.setData(data);
+    } else {
+      network.current = new Network(networkContainer.current, data, options);
+    }
+  }, [numNodes]);
 
-  return <div id="mynetwork" ref={networkContainer} style={{ width: '600px', height: '400px' }}></div>;
+  return (
+    <div
+      id="mynetwork"
+      ref={networkContainer}
+      style={{ width: '600px', height: '400px' }}
+    ></div>
+  );
 };
 
 export default NetworkGraph;

@@ -1,16 +1,18 @@
-// src/App.js
-import React from 'react';
-import './App.css';
-import NetworkGraph from './components/NetworkGraph';
-import FormComponent from './components/FormComponent';
+import React, { useState } from 'react';
+import NetworkGraph from './components/NetworkGraph.js';
+import FormComponent from './components/FormComponent.js';
+import WolframComponent from './components/WolframComponent.js';
 
-function App() {
+const App = async () => {
+  const [numNodes, setNumNodes] = useState(5); // Initial number of nodes
+
   return (
-    <div className="App">
-      <NetworkGraph />
-      <FormComponent/>
+    <div>
+      <FormComponent setNumNodes={setNumNodes} />
+      <NetworkGraph numNodes={numNodes} />
+      <WolframComponent numNodes={numNodes}/>
     </div>
   );
-}
+};
 
 export default App;

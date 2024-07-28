@@ -3,7 +3,7 @@ import NetworkGraph from './components/NetworkGraph.js';
 import FormComponent from './components/FormComponent.js';
 import WolframComponent from './components/WolframComponent.js';
 
-const App = async () => {
+const App = () => {
   const [numNodes, setNumNodes] = useState(5); // Initial number of nodes
 
   return (
